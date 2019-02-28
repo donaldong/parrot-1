@@ -17,6 +17,13 @@ matrix:
     python: '3.6'
     install:
     - pip install -r requirements.txt
+    before_script:
+    - |
+      # Use production environment on the master branch
+      #   PARROT_HOST, PARROT_CDN_HOST are pre-set on Travis
+      if [ $TRAVIS_BRANCH = 'master' ]; then
+        export PARROT_ENV='production'
+      fi
     script:
     - python manage.py test
 notifications:
